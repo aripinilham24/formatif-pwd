@@ -3,10 +3,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    background-color: #1A1A19;
+    padding: 0;
+    margin: 0;
 }
+
 .content {
+    padding: 1rem;
     width: 30rem;
-    border: 1px solid red;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
 
 .head {
@@ -16,5 +23,50 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+}
+
+label {
+    font-weight: 600;
+}
+
+select, input {
+    margin-bottom: 1rem;
+    height: 2rem;
+}
+
+button {
+    padding: 0.5rem;
+    border: none;
+    margin: 0.2rem;
+    border-radius: 5px;
+    color: white;
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+    -webkit-transform: scale(1.01);
+    -moz-transform: scale(1.01);
+    -ms-transform: scale(1.01);
+    -o-transform: scale(1.01);
+}
+
+button[type='submit'] {
+    background-color: green;
+}
+
+button[type='reset'] {
+    background-color: red;
+}
+
+span {
+    display: inline-block;
+}
+
+.label {
+    width: 8rem;
+    font-weight: 600;
+}
+.isi::before{
+    content: ':';
 }

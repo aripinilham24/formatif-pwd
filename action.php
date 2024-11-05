@@ -11,8 +11,8 @@
 <body>
     <div class="content">
         <div class="head">
-        <h1>BIOSKOP ALMAHYRA</h1>
-        <h4>Jl. Siliwangi 127A Kel.Sepanjang Jaya Kota Bekasi</h4>
+            <h1>BIOSKOP ALMAHYRA</h1>
+            <h4>Jl. Siliwangi 127A Kel.Sepanjang Jaya Kota Bekasi</h4>
         </div>
         <hr>
         <div class="php">
@@ -32,34 +32,76 @@
                 $harga = 50000;
             }
 
-            function hitungHarga($harga, $jumlahBeli, $diskon, $ppn)
+            if ($idPelanggan == "MBV") {
+                $status = "MEMBER VIP";
+                $diskon = $harga * 0.2;
+            } elseif ($idPelanggan == "MBR") {
+                $status = "MEMBER REGULER";
+                $diskon = $harga * 0.1;
+            } elseif ($idPelanggan == "MBN") {
+                $status = "NON MEMBER";
+                $diskon = 0;
+            }
+            function bayar($harga, $jumlahBeli, $diskon, $ppn)
             {
                 $total = $harga * $jumlahBeli - $diskon;
                 $totalPpn = $total * $ppn;
-                $totalHarga = $total + $totalPpn;
-                return $totalHarga;
+                $totalBayar = $total + $totalPpn;
+                return [$totalBayar, $totalPpn];
             }
 
-            if ($idPelanggan == "MBV") {
-                $status = "Member Vip";
-                $diskon = $harga * 0.2;
-            } elseif ($idPelanggan == "MBR") {
-                $status = "Member Reguler";
-                $diskon = $harga * 0.1;
-            } elseif ($idPelanggan == "MBN") {
-                $status = "Non Member";
-                $diskon = 0;
+            list($totalBayar, $totalPpn) = bayar($harga, $jumlahBeli, $diskon, $ppn);
+
+            function formatRp($toRp)
+            {
+                $toRp = number_format($toRp, 2, ",", ".");
+                return $toRp;
             }
 
-            echo "ID PELANGGAN: $idPelanggan <br>";
-            echo "STATUS: $status <br>";
-            echo "FILM: $film <br>";
-            echo "DISKON: Rp.  $diskon <br>";
-            echo "HARGA: Rp. $harga <br>";
-            echo "JUMLAH BELI: $jumlahBeli <br>";
-            echo "TOTAL: Rp. " . hitungHarga($harga, $jumlahBeli, $diskon, $ppn);
+            echo "<div>
+            <span class='label'>ID PELANGGAN</span>
+            <span class='isi'>$idPelanggan</span>
+            </div>";
+
+            echo "<div>
+            <span class='label'>STATUS</span>
+            <span class='isi'>$status</span>
+            </div>";
+
+            echo "<div>
+            <span class='label'>FILM</span>
+            <span class='isi'>$film</span>
+            </div>";
+
+            echo "<div>
+            <span class='label'>DISKON</span>
+            <span class='isi'>Rp. ".formatRp($diskon)."</span>
+            </div>";
+
+            echo "<div>
+            <span class='label'>HARGA</span>
+            <span class='isi'>Rp. ".formatRp($harga)."</span>
+            </div>";
+
+            echo "<div>
+            <span class='label'>JUMLAH BELI</span>
+            <span class='isi'>$jumlahBeli</span>
+            </div>";
+
+            echo "<div>
+            <hr>
+            <span class='label'>PPN</span>
+            <span class='isi'>Rp. ".formatRp($totalPpn)."</span>
+            </div>";
+
+            echo "<div>
+            <span class='label'>TOTAL</span>
+            <span class='isi'>Rp. ".formatRp($totalBayar)."</span>
+            </div>";
+
             ?>
         </div>
+        <hr>
         <a href="formatif.php">INPUT LAGI</a>
     </div>
 </body>
